@@ -13,23 +13,42 @@ class User{
         int ID;
         string passwd;
 
-        void showBalance()
-        {
+        void showBalance();
 
-        }
+        void withdraw(double amount);
+        
 
-        void withdraw()
-        {
-
-        }
-
-        void deposit()
-        {
-
-        }
+        void deposit(double amount);
+        
 
 
 };
+
+void User::showBalance()
+    {
+        std::cout << "balance: " << balance << endl;
+    }
+
+void User::withdraw(double amount)
+{
+    
+    balance -= amount;
+    std::cout << "Your amount was withdrawn."<< endl;
+
+}
+
+void User::deposit(double amount)
+{
+    if(amount <= 0)
+    {
+        std::cout << "This is an invalid amount." << endl;
+        return;
+    }
+
+    balance += amount;
+    std::cout << "The amount was added into your account." << endl;
+}
+
 
 void showMenu()
 {
@@ -146,18 +165,22 @@ int main()
             switch(choice)
             {
                 case 1: std::cout << "Balance: $" << Users[ID].balance << endl; break;
-                case 2: std::cout << "Deposit Amount: ";
+                case 2: 
+                {
+                    std::cout << "Deposit Amount: ";
                     double depAmount;
                     cin >> depAmount;
-                    Users[ID].balance += depAmount;
+                    //Users[ID].balance += depAmount;
                     //balance += depAmount;
+                    Users[ID].deposit(depAmount);
                     break;
+                }
                 case 3: std::cout << "Withdraw Amount:  ";
                     double witAmount;
                     cin >> witAmount;
                     if(witAmount < Users[ID].balance)
                     {
-                        Users[ID].balance -= witAmount;
+                        Users[ID].withdraw(witAmount);
                     }
                     else
                     {
